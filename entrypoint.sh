@@ -10,8 +10,8 @@ echo "GithubSHA:: $GITHUB_SHA"
 echo "Files:: $files"
 echo "Path:: $INPUT_PATH"
 echo "SteamAcct:: $INPUT_STEAMACCT"
-echo "$INPUT_SSFNCONTENTS" | base64 -d "/root/.steam/$INPUT_SSFNFILENAME"
-echo "$INPUT_STEAMCONFIGVDF" | base64 -d "/root/.steam/config/config.vdf"
+echo "$INPUT_SSFNCONTENTS" | base64 -d > "/root/.steam/$INPUT_SSFNFILENAME"
+echo "$INPUT_STEAMCONFIGVDF" | base64 -d > "/root/.steam/config/config.vdf"
 
 
 echo "List of changed files: "
