@@ -8,12 +8,28 @@ branding:
 runs:
   using: 'docker'
   image: 'Dockerfile'
-  args:
+
+  steps:
+    - name: checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: get changed files
+        id: getfile
+        run: |
+          echo "::set-output name=files::$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }}| xargs)"
+      - name: echo the changed files for kicks
+        run: |
+          for i in ${{ steps.getfile.outputs.files }}
+          do
+              echo $i
+          done
+    args:
     - ${{ inputs.path }}
     - ${{ inputs.steamAcct }}
     - ${{ inputs.steamPasswd }}
-    - $(( inputs.files ))
-  
+    - ${{ inputs.ssfncontents }}
+    - ${{ steps.getfile.outputs.files }}
 
 inputs:
   path:
@@ -29,3 +45,6 @@ inputs:
   files:
     description: "List of files that have changed in the repo"
     required: true
+  ssfncontents:
+    description: "base64 of the steam SSFN file that has authorized the account being used. Used for MFA"
+    required: false

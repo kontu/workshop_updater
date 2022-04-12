@@ -1,18 +1,10 @@
-#!/bin/bash
-#steamAcct="AccountName"
-#steamPasswd="Password"
-#path="Mods"
-#files=$(<filelist.txt)
-#echo "$files"
-#echo "$path"
-
 ## Debug
 echo "Files:: $INPUT_FILES"
 echo "Path:: $INPUT_PATH"
 echo "SteamAcct:: $INPUT_STEAMACCT"
 what=($INPUT_FILES)
 mods=$(printf '%s\n' "${what[@]}" | cut -f1-2 -d '/' | uniq)
-
+echo "$INPUT_SSFNCONTENTS" | base64 -d 
 
 for item in $mods
 do
