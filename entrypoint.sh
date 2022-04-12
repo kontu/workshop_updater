@@ -1,14 +1,23 @@
-## Debug
-echo "Files:: $INPUT_FILES"
+
+files=($(git diff-tree --no-commit-id --name-only -r $GITHUB_SHA | xargs))
+mods=$(printf '%s\n' "${files[@]}" | cut -f1-2 -d '/' | uniq)
+
+echo "GithubSHA:: $GITHUB_SHA"
+echo "Files:: $files"
 echo "Path:: $INPUT_PATH"
 echo "SteamAcct:: $INPUT_STEAMACCT"
-what=($INPUT_FILES)
-mods=$(printf '%s\n' "${what[@]}" | cut -f1-2 -d '/' | uniq)
 echo "$INPUT_SSFNCONTENTS" | base64 -d 
 
+echo "List of changed files: "
+for i in $files
+do
+    echo "$files"
+done
+
+# Run through updating the mods if the above parsed correctly
 for item in $mods
 do
-    echo "Item:: $item"
+    echo "Mod:: $item"
     if [[ $item == $INPUT_PATH* ]]; 
     then 
         upload=$(find $GITHUB_WORKSPACE/$item -name "*.vdf" )

@@ -8,28 +8,13 @@ branding:
 runs:
   using: 'docker'
   image: 'Dockerfile'
-
-  steps:
-    - name: checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - name: get changed files
-        id: getfile
-        run: |
-          echo "::set-output name=files::$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }}| xargs)"
-      - name: echo the changed files for kicks
-        run: |
-          for i in ${{ steps.getfile.outputs.files }}
-          do
-              echo $i
-          done
     args:
     - ${{ inputs.path }}
     - ${{ inputs.steamAcct }}
     - ${{ inputs.steamPasswd }}
-    - ${{ inputs.ssfncontents }}
-    - ${{ steps.getfile.outputs.files }}
+    - ${{ inputs.ssfnContents }}
+    - ${{ inputs.ssfnFileName }}
+    - ${{ inputs.steamConfigVdf}}
 
 inputs:
   path:
@@ -42,7 +27,15 @@ inputs:
   steamPasswd:
     description: "Steam password (use secrets to store)"
     required: true
-  ssfncontents:
+  ssfnContents:
     description: "base64 of the steam SSFN file that has authorized the account being used. Used for MFA"
+    default: 'null'
+    required: false
+  ssfnFileName:
+    description: "SSFN file name specified in the config.vdf that has authorized the account being used. Used for MFA"
+    default: 'null'
+    required: false
+  steamConfigVdf:
+    description: "base64 of the steam config vdf generated for the account being used. Used for MFA"
     default: 'null'
     required: false
