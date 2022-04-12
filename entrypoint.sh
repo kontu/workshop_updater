@@ -5,6 +5,12 @@
 #files=$(<filelist.txt)
 #echo "$files"
 #echo "$path"
+
+## Debug
+echo "Files:: $files"
+echo "Path:: $path"
+echo "SteamAcct:: $steamAcct"
+
 mods=$(printf '%s\n' "${files[@]}" | cut -f1-2 -d '/' | uniq)
 
 for item in $mods
