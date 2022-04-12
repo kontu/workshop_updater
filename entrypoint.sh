@@ -10,8 +10,8 @@
 echo "Files:: $INPUT_FILES"
 echo "Path:: $INPUT_PATH"
 echo "SteamAcct:: $INPUT_STEAMACCT"
-
-mods=$(printf '%s\n' "${INPUT_FILES[@]}" | cut -f1-2 -d '/' | uniq)
+what=$INPUT_FILES
+mods=$(printf '%s\n' "${what[@]}" | cut -f1-2 -d '/' | uniq)
 
 
 for item in $mods

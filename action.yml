@@ -9,7 +9,7 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    #- ${{ inputs.path }}
+    - ${{ inputs.path }}
     - ${{ inputs.steamAcct }}
     - ${{ inputs.steamPasswd }}
     - $(( inputs.files ))
@@ -26,6 +26,6 @@ inputs:
   steamPasswd:
     description: "Steam password (use secrets to store)"
     required: true
-  # files:
-  #   description: "List of files that have changed in the repo"
-  #   required: true
+  files:
+    description: "List of files that have changed in the repo"
+    required: true
