@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x # echo on
 apt update && apt install -y git
 git config --global --add safe.directory /github/workspace
 cd $GITHUB_WORKSPACE
