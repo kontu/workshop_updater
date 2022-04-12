@@ -19,8 +19,8 @@ do
     echo "Item:: $item"
     if [[ $item == $INPUT_PATH* ]]; 
     then 
-        upload=$(find $GITHUB_WORKSPACE/$INPUT_PATH/$item -name "*.vdf" )
+        upload=$(find $GITHUB_WORKSPACE/$item -name "*.vdf" )
         echo "Upload:: $upload"
-        steamcmd +login "$INPUT_STEAMACCT" "$INPUT_STEAMPASSWD" +workshop_build_item "$upload" +quit
+        #steamcmd +login "$INPUT_STEAMACCT" "$INPUT_STEAMPASSWD" +workshop_build_item "$upload" +quit
     fi
 done
