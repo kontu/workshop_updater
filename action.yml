@@ -8,13 +8,13 @@ branding:
 runs:
   using: 'docker'
   image: 'Dockerfile'
-    args:
-    - ${{ inputs.path }}
-    - ${{ inputs.steamAcct }}
-    - ${{ inputs.steamPasswd }}
-    - ${{ inputs.ssfnContents }}
-    - ${{ inputs.ssfnFileName }}
-    - ${{ inputs.steamConfigVdf}}
+  args:
+  - ${{ inputs.path }}
+  - ${{ inputs.steamAcct }}
+  - ${{ inputs.steamPasswd }}
+  - ${{ inputs.ssfnContents }}
+  - ${{ inputs.ssfnFileName }}
+  - ${{ inputs.steamConfigVdf}}
 
 inputs:
   path:
