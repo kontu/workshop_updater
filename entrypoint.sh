@@ -9,10 +9,11 @@
 ## Debug
 echo "Files:: $INPUT_FILES"
 echo "Path:: $INPUT_PATH"
-echo "SteamAcct:: $steamAcct"
+echo "SteamAcct:: $INPUT_STEAMACCT"
 
 mods=$(printf '%s\n' "${INPUT_FILES[@]}" | cut -f1-2 -d '/' | uniq)
 
+echo "Mods:: $mods"
 for item in $mods
 do
     if [[ $item == $INPUT_PATH* ]]; 
