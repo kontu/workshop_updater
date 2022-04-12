@@ -1,5 +1,6 @@
 #!/bin/bash
 apt update && apt install -y git
+git config --global --add safe.directory /github/workspace
 cd $GITHUB_WORKSPACE
 files=($(git diff-tree --no-commit-id --name-only -r $GITHUB_SHA | xargs))
 mods=$(printf '%s\n' "${files[@]}" | cut -f1-2 -d '/' | uniq)
@@ -8,7 +9,7 @@ echo "GithubSHA:: $GITHUB_SHA"
 echo "Files:: $files"
 echo "Path:: $INPUT_PATH"
 echo "SteamAcct:: $INPUT_STEAMACCT"
-echo "$INPUT_SSFNCONTENTS" | base64 -d 
+echo "$INPUT_SSFNCONTENTS" | base64 -d $STEAM_HOME/$INPUT_SSFNFILENAME
 
 echo "List of changed files: "
 for i in $files
