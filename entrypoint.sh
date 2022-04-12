@@ -15,8 +15,8 @@ mods=$(printf '%s\n' "${INPUT_FILES[@]}" | cut -f1-2 -d '/' | uniq)
 
 
 for item in $mods
-echo "Item:: $item"
 do
+    echo "Item:: $item"
     if [[ $item == $1* ]]; 
     then 
         upload=$(find /mnt/c/Users/kontu/scripts/workshop_updater_test/$item -name "*.vdf" )
