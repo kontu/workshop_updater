@@ -1,5 +1,6 @@
 #!/bin/bash
 apt update && apt install -y git
+cd $GITHUB_WORKSPACE
 files=($(git diff-tree --no-commit-id --name-only -r $GITHUB_SHA | xargs))
 mods=$(printf '%s\n' "${files[@]}" | cut -f1-2 -d '/' | uniq)
 
