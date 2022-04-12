@@ -19,7 +19,7 @@ do
     echo "Item:: $item"
     if [[ $item == $INPUT_PATH* ]]; 
     then 
-        upload=$(find /mnt/c/Users/kontu/scripts/workshop_updater_test/$item -name "*.vdf" )
+        upload=$(find $(pwd)/$INPUT_PATH/$item -name "*.vdf" )
         echo "Upload:: $upload"
         steamcmd +login "$INPUT_STEAMACCT" "$INPUT_STEAMPASSWD" +workshop_build_item "$upload" +quit
     fi
