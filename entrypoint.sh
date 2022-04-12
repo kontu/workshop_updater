@@ -7,18 +7,18 @@
 #echo "$path"
 
 ## Debug
-echo "Files:: $INPUT_FILES"
-echo "Path:: $INPUT_PATH"
-echo "SteamAcct:: $INPUT_STEAMACCT"
+echo "Files:: $4"
+echo "Path:: $1"
+echo "SteamAcct:: $2"
 
 mods=$(printf '%s\n' "${INPUT_FILES[@]}" | cut -f1-2 -d '/' | uniq)
 
 echo "Mods:: $mods"
 for item in $mods
 do
-    if [[ $item == $INPUT_PATH* ]]; 
+    if [[ $item == $1* ]]; 
     then 
         upload=$(find /mnt/c/Users/kontu/scripts/workshop_updater_test/$item -name "*.vdf" )
-        steamcmd +login "$INPUT_STEAMACCT" "$INPUT_STEAMPASSWD" +workshop_build_item "$upload" +quit
+        steamcmd +login "$2" "$3" +workshop_build_item "$upload" +quit
     fi
 done
