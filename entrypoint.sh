@@ -1,12 +1,17 @@
 #!/bin/bash
-cat << EOT > item.vdf
-"workshopitem"
-{
-    "appid" "$1"
-    "publishedfileid" "$2"
-    "contentfolder" "$GITHUB_WORKSPACE/$3"
-    "changenote" "$4"
-}
-EOT
+#steamAcct="AccountName"
+#steamPasswd="Password"
+#path="Mods"
+#files=$(<filelist.txt)
+#echo "$files"
+#echo "$path"
+mods=$(printf '%s\n' "${files[@]}" | cut -f1-2 -d '/' | uniq)
 
-steamcmd +login "$STEAM_ACCOUNT_NAME" "$STEAM_PASSWORD" +workshop_build_item "$(pwd)/item.vdf" +quit
+for item in $mods
+do
+    if [[ $item == $path* ]]; 
+    then 
+        upload=$(find /mnt/c/Users/kontu/scripts/workshop_updater_test/$item -name "*.vdf" )
+        steamcmd +login "$steamAcct" "$steamPasswd" +workshop_build_item "$upload" +quit
+    fi
+done
