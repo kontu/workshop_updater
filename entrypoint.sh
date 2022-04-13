@@ -1,21 +1,21 @@
 #!/bin/bash
 #set -x # echo on for debug
-apt -qq update && apt -qq install -y git
+apt -qq update && apt -qq install -y git --no-install-recommends
 git config --global --add safe.directory /github/workspace
 cd $GITHUB_WORKSPACE
 list=$(git diff-tree --no-commit-id --name-only -r $GITHUB_SHA | xargs)
 # Turns list of files to an array bc it didn't want to do it in one operation
 files=($list)
 mods=$(printf '%s\n' "${files[@]}" | cut -f1-2 -d '/' | uniq)
-mkdir -p "$GITHUB_WORKSPACE/.steam/config/"
+mkdir -p "$/github/home/.steam/config/"
 
 echo "GithubSHA:: $GITHUB_SHA"
 echo "Files:: $files"
 echo "Path:: $INPUT_PATH"
 echo "SteamAcct:: $INPUT_STEAMACCT"
 echo "SSFN Filename:: $INPUT_SSFNFILENAME"
-echo "$INPUT_SSFNCONTENTS" | base64 -d > "$GITHUB_WORKSPACE/.steam/$INPUT_SSFNFILENAME"
-echo "$INPUT_STEAMCONFIGVDF" | base64 -d > "$GITHUB_WORKSPACE/.steam/config/config.vdf"
+echo "$INPUT_SSFNCONTENTS" | base64 -d > "$/github/home/.steam/$INPUT_SSFNFILENAME"
+echo "$INPUT_STEAMCONFIGVDF" | base64 -d > "$/github/home/.steam/config/config.vdf"
 
 
 
