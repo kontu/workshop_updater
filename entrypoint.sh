@@ -26,6 +26,6 @@ do
         echo "Mod:: $mod"
         upload=$(find $GITHUB_WORKSPACE/$item -name "*.vdf" )
         echo "Upload:: $upload"
-        #steamcmd +login "$INPUT_STEAMACCT" "$INPUT_STEAMPASSWD" +workshop_build_item "$upload" +quit
+        steamcmd +login "$INPUT_STEAMACCT" "$INPUT_STEAMPASSWD" +workshop_build_item "$upload" +quit
     fi
 done
