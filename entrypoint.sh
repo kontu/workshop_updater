@@ -25,7 +25,7 @@ do
     if [[ $mod == $INPUT_PATH* ]]; 
     then 
         echo "Mod to upload:: $mod"
-        upload=$(find $GITHUB_WORKSPACE/$item -name "*.vdf" )
+        upload=$(find $GITHUB_WORKSPACE/$mod -name "*.vdf" )
         echo "Upload VDF File:: $upload"
         steamcmd +login "$INPUT_STEAMACCT" "$INPUT_STEAMPASSWD" +workshop_build_item "$upload" +quit
     fi
