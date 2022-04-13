@@ -1,6 +1,6 @@
 #!/bin/bash
-set -x # echo on
-apt update && apt install -y git
+#set -x # echo on for debug
+apt -q update && apt -q install -y git
 git config --global --add safe.directory /github/workspace
 cd $GITHUB_WORKSPACE
 list=$(git diff-tree --no-commit-id --name-only -r $GITHUB_SHA | xargs)
@@ -13,6 +13,7 @@ echo "GithubSHA:: $GITHUB_SHA"
 echo "Files:: $files"
 echo "Path:: $INPUT_PATH"
 echo "SteamAcct:: $INPUT_STEAMACCT"
+
 echo "$INPUT_SSFNCONTENTS" | base64 -d > "/root/.steam/$INPUT_SSFNFILENAME"
 echo "$INPUT_STEAMCONFIGVDF" | base64 -d > "/root/.steam/config/config.vdf"
 
@@ -23,9 +24,9 @@ for mod in $mods
 do
     if [[ $mod == $INPUT_PATH* ]]; 
     then 
-        echo "Mod:: $mod"
+        echo "Mod to upload:: $mod"
         upload=$(find $GITHUB_WORKSPACE/$item -name "*.vdf" )
-        echo "Upload:: $upload"
+        echo "Upload VDF File:: $upload"
         steamcmd +login "$INPUT_STEAMACCT" "$INPUT_STEAMPASSWD" +workshop_build_item "$upload" +quit
     fi
 done
