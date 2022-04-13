@@ -20,12 +20,13 @@ runs:
         SteamConfigVDF: ${{ inputs.steamConfigVdf}}
         STEAM_HOME: ${{ steps.setup-steamcmd.outputs.directory }}
         STEAM_CMD: ${{ steps.setup-steamcmd.outputs.executable }}
-
       run: |
+        
+        git config --global --add safe.directory /github/workspace
         chmod +x ${{ github.action_path }}/steamupload.sh
         ${{ github.action_path }}/steamupload.sh
       shell: bash
-
+#apt -qq update && apt -qq install -y git --no-install-recommends
 inputs:
   path:
     description: "The relative base path of your mods in the repo. Include trailing slash"
