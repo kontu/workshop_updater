@@ -6,15 +6,25 @@ branding:
   color: 'blue'
 
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
-  args:
-  - ${{ inputs.path }}
-  - ${{ inputs.steamAcct }}
-  - ${{ inputs.steamPasswd }}
-  - ${{ inputs.ssfnContents }}
-  - ${{ inputs.ssfnFileName }}
-  - ${{ inputs.steamConfigVdf}}
+  using: 'composite'
+  steps:
+    - id: setup-steamcmd
+      uses: CyberAndrii/setup-steamcmd@v1.1.1
+    -id: update_workshop
+    env:
+      path: ${{ inputs.path }}
+      steamAcct: ${{ inputs.steamAcct }}
+      steamPasswd: ${{ inputs.steamPasswd }}
+      ssfnContents: ${{ inputs.ssfnContents }}
+      ssfnFileName: ${{ inputs.ssfnFileName }}
+      SteamConfigVDF: ${{ inputs.steamConfigVdf}}
+      STEAM_HOME: ${{ steps.setup-steamcmd.outputs.directory }}
+      STEAM_CMD: ${{ steps.setup-steamcmd.outputs.executable }}
+
+    run: |
+      chmod +x ${{ github.action_path }}/steamupload.sh
+      ${{ github.action_path }}/steamupload.sh
+    shell: bash
 
 inputs:
   path:
