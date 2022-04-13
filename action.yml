@@ -10,21 +10,21 @@ runs:
   steps:
     - id: setup-steamcmd
       uses: CyberAndrii/setup-steamcmd@v1.1.1
-    -id: update_workshop
-    env:
-      path: ${{ inputs.path }}
-      steamAcct: ${{ inputs.steamAcct }}
-      steamPasswd: ${{ inputs.steamPasswd }}
-      ssfnContents: ${{ inputs.ssfnContents }}
-      ssfnFileName: ${{ inputs.ssfnFileName }}
-      SteamConfigVDF: ${{ inputs.steamConfigVdf}}
-      STEAM_HOME: ${{ steps.setup-steamcmd.outputs.directory }}
-      STEAM_CMD: ${{ steps.setup-steamcmd.outputs.executable }}
+    - id: update_workshop
+      env:
+        path: ${{ inputs.path }}
+        steamAcct: ${{ inputs.steamAcct }}
+        steamPasswd: ${{ inputs.steamPasswd }}
+        ssfnContents: ${{ inputs.ssfnContents }}
+        ssfnFileName: ${{ inputs.ssfnFileName }}
+        SteamConfigVDF: ${{ inputs.steamConfigVdf}}
+        STEAM_HOME: ${{ steps.setup-steamcmd.outputs.directory }}
+        STEAM_CMD: ${{ steps.setup-steamcmd.outputs.executable }}
 
-    run: |
-      chmod +x ${{ github.action_path }}/steamupload.sh
-      ${{ github.action_path }}/steamupload.sh
-    shell: bash
+      run: |
+        chmod +x ${{ github.action_path }}/steamupload.sh
+        ${{ github.action_path }}/steamupload.sh
+      shell: bash
 
 inputs:
   path:
