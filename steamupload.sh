@@ -49,7 +49,7 @@ do
         echo "Mod to upload:: $mod"
         upload=$(find $GITHUB_WORKSPACE/$mod -name "*.vdf" )
         echo "Upload VDF File:: $upload"
-        $STEAM_CMD +login "$steamAcct" "$steamPasswd" +workshop_build_item "$upload" +quit 
+        $STEAM_CMD +login "$steamAcct" "'$steamPasswd'" +workshop_build_item "$upload" +quit 
         # || (
         #     echo ""
         #     echo "#################################"
