@@ -15,7 +15,7 @@ echo "Path:: $INPUT_PATH"
 echo "SteamAcct:: $INPUT_STEAMACCT"
 echo "SSFN Filename:: $INPUT_SSFNFILENAME"
 echo "$INPUT_SSFNCONTENTS" | base64 -d > "/github/home/.steam/$INPUT_SSFNFILENAME"
-echo "$INPUT_STEAMCONFIGVDF" | base64 -d > "$/github/home/.steam/config/config.vdf"
+echo "$INPUT_STEAMCONFIGVDF" | base64 -d > "/github/home/.steam/config/config.vdf"
 
 
 
