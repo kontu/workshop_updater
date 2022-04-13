@@ -7,7 +7,7 @@ list=$(git diff-tree --no-commit-id --name-only -r $GITHUB_SHA | xargs)
 # Turns list of files to an array bc it didn't want to do it in one operation
 files=($list)
 mods=$(printf '%s\n' "${files[@]}" | cut -f1-2 -d '/' | uniq)
-mkdir -p "/root/.steam/config/"
+mkdir -p "$GITHUB_WORKSPACE/.steam/config/"
 
 echo "GithubSHA:: $GITHUB_SHA"
 echo "Files:: $files"
