@@ -13,13 +13,13 @@ echo "GithubSHA:: $GITHUB_SHA"
 echo "Files:: $files"
 echo "Path:: $INPUT_PATH"
 echo "SteamAcct:: $INPUT_STEAMACCT"
-echo "SSFN Filename:: $INPUT_SSFN_FILENAME"
-echo "$INPUT_SSFNCONTENTS" | base64 -d > "/root/.steam/$INPUT_SSFN_FILENAME"
+echo "SSFN Filename:: $INPUT_SSFNFILENAME"
+echo "$INPUT_SSFNCONTENTS" | base64 -d > "/root/.steam/$INPUT_SSFNFILENAME"
 echo "$INPUT_STEAMCONFIGVDF" | base64 -d > "/root/.steam/config/config.vdf"
 echo "Contents of config.vdf"
 cat "/root/.steam/config/config.vdf"
-echo "Contents of ssfn (not human legible) named:: $INPUT_SSFN_FILENAME"
-cat "/root/.steam/$INPUT_SSFN_FILENAME"
+echo "Contents of ssfn (not human legible) named:: $INPUT_SSFNFILENAME"
+cat "/root/.steam/$INPUT_SSFNFILENAME"
 
 
 
