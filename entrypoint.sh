@@ -1,6 +1,6 @@
 #!/bin/bash
 #set -x # echo on for debug
-apt -q update && apt -q install -y git
+apt -qq update && apt -qq install -y git
 git config --global --add safe.directory /github/workspace
 cd $GITHUB_WORKSPACE
 list=$(git diff-tree --no-commit-id --name-only -r $GITHUB_SHA | xargs)
@@ -16,7 +16,7 @@ echo "SteamAcct:: $INPUT_STEAMACCT"
 
 echo "$INPUT_SSFNCONTENTS" | base64 -d > "/root/.steam/$INPUT_SSFNFILENAME"
 echo "$INPUT_STEAMCONFIGVDF" | base64 -d > "/root/.steam/config/config.vdf"
-
+cat "/root/.steam/config/config.vdf"
 
 
 # Run through updating the mods if the above parsed correctly
