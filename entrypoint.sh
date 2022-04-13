@@ -8,6 +8,7 @@ list=$(git diff-tree --no-commit-id --name-only -r $GITHUB_SHA | xargs)
 files=($list)
 mods=$(printf '%s\n' "${files[@]}" | cut -f1-2 -d '/' | uniq)
 mkdir -p "/github/home/Steam/config/"
+mkdir -p "/github/home/.steam/config/"
 
 echo "GithubSHA:: $GITHUB_SHA"
 echo "Changed Files:: $list"
@@ -16,7 +17,8 @@ echo "SteamAcct:: $INPUT_STEAMACCT"
 echo "SSFN Filename:: $INPUT_SSFNFILENAME"
 echo "$INPUT_SSFNCONTENTS" | base64 -d > "/github/home/Steam/$INPUT_SSFNFILENAME"
 echo "$INPUT_STEAMCONFIGVDF" | base64 -d > "/github/home/Steam/config/config.vdf"
-
+ln -s "/github/home/Steam/$INPUT_SSFNFILENAME" "/github/home/.steam/$INPUT_SSFNFILENAME"
+ln -s "/github/home/Steam/config/config.vdf" "/github/home/.steam/config/config.vdf"
 # Run through updating the mods if the above parsed correctly
 for mod in $mods
 do
