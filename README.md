@@ -1,7 +1,7 @@
-# workshop
+# Workshop Updater
 A GitHub Action to update Steam Workshop items
 
-## Use it
+## Using it
 You'll need to upload your addon using the Workshop tools of the game/app you're looking to submit to first. Then, create a `.github/workflows/main.yml` with something that resembles the following:
 
 ```yaml
@@ -52,16 +52,16 @@ Example vdf file:
 }
 ```
 
-Full steamworks documentation  https://partner.steamgames.com/doc/features/workshop/implementation?l=finnish&language=english
+Full steamworks documentation  https://partner.steamgames.com/doc/features/workshop/implementation
 
 ## Arguments
-See action.yml list of inputs
+See list of inputs in [action.yml](https://github.com/kontu/workshop_updater/blob/master/action.yml)
 
 ## How to create MFA secrets : 
 #### configVdf, ssfnFileName, and ssfnFileContents
 
-Deploying to Steam requires using Multi-Factor Authentication (MFA) through Steam Guard. 
-This means that simply using username and password isn't enough to authenticate with Steam. 
+Deploying to Steam often requires using Multi-Factor Authentication (MFA) through Steam Guard. This means that simply using username and password isn't enough to authenticate with Steam. 
+
 However, it is possible to go through the MFA process only once by setting up GitHub Secrets for configVdf, ssfnFileName, and ssfnFileContents with these steps:
 1. Install [Valve's offical steamcmd](https://partner.steamgames.com/doc/sdk/uploading#1) on your local machine. All following steps will also be done on your local machine.
 1. Try to login with `steamcmd +login <username> <password> +quit`, which may prompt for the MFA code. If so, type in the MFA code that was emailed to your builder account's email address.
