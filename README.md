@@ -1,5 +1,5 @@
 # workshop
-A GitHub Action to upload items to the Steam Workshop
+A GitHub Action to update Steam Workshop items
 
 ## Use it
 You'll need to upload your addon using the Workshop tools of the game/app you're looking to submit to first. Then, create a `.github/workflows/main.yml` with something that resembles the following:
@@ -32,6 +32,27 @@ jobs:
           ssfnFileName: 'ssfn1098596842295311902'
           steamConfigVdf: ${{ secrets.steam_config_vdf }}
 ```
+## Example mod repo layout:
+![Repo layout image](https://i.imgur.com/T9uuO3A.png)
+
+## Mod folder
+You will need to construct a vdf configuration file for each mod prior to using this action. Pathing relative to repository root are required.
+Example vdf file:
+```json
+"workshopitem"
+{
+ "appid" "244850"
+ "publishedfileid" "2793886717" 
+ "contentfolder" "Mods/mod_one"
+ "previewfile" "Mods/mod_one/thumb.png"
+ "visibility" "0"
+ "title" "mod_one"
+ "description" "A demo mod named mod_one"
+ "changenote" "Version 1.2"
+}
+```
+
+Full steamworks documentation  https://partner.steamgames.com/doc/features/workshop/implementation?l=finnish&language=english
 
 ## Arguments
 See action.yml list of inputs
