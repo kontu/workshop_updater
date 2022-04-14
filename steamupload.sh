@@ -56,6 +56,7 @@ do
             echo "#             Errors            #"
             echo "#################################"
             echo ""
+            find / -type f -iname  "*libraryfolders.vdf"
             echo "Listing steam home contents"
             ls -Ralph $STEAM_HOME
             echo ""
