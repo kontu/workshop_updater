@@ -52,6 +52,9 @@ do
         echo "Upload VDF File:: $upload"
         var=$(echo "$GITHUB_WORKSPACE" | sed 's/\\/\\\\/g')
         sed -i  "s|\"contentfolder\" \"|\"contentfolder\" \"$var\\\|g" $upload
+        sed -i  "s|\"previewfile\" \"|\"previewfile\" \"$var\\\|g" $upload
+        sed -i  "s|\"title\" \"|\"title\" \"$var\\\|g" $upload
+        
         cat $upload
         echo ""
         $STEAM_CMD +login "$steamAcct" "$steamPasswd" +workshop_build_item "$upload" +quit || (
