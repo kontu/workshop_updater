@@ -13,6 +13,7 @@ echo "Path:: $path"
 echo "SteamAcct:: $steamAcct"
 echo "SSFN Filename:: $ssfnFileName"
 echo "Steam_Home:: $STEAM_HOME"
+echo "Steam_executable:: $STEAM_CMD"
 echo ""
 echo "#################################"
 echo "#    Copying SteamGuard Files   #"
@@ -33,6 +34,8 @@ chmod 777 "/home/runner/Steam/config/config.vdf"
 
 echo "Copying $STEAM_HOME/ssfn"
 echo "$ssfnFileContents" | base64 -d > "$STEAM_HOME/$ssfnFileName"
+
+echo "md5 of ssfn:: $(md5sum "$STEAM_HOME/$ssfnFileName)"
 chmod 777 "$STEAM_HOME/$ssfnFileName"
 
 echo "Copying /home/runner/Steam/ssfn"
@@ -50,34 +53,34 @@ do
         echo "Mod to upload:: $mod"
         upload=$(find $GITHUB_WORKSPACE/$mod -name "*.vdf" )
         echo "Upload VDF File:: $upload"
-        $STEAM_CMD +login "$steamAcct" "$steamPasswd" +workshop_build_item "$upload" +quit || (
-            echo ""
-            echo "#################################"
-            echo "#             Errors            #"
-            echo "#################################"
-            echo ""
-            echo "Listing steam home contents"
-            ls -Ralph $STEAM_HOME
-            echo ""
-            echo "Listing current folder and rootpath"
-            echo ""
-            ls -alh
-            echo ""
-            ls -alh $rootPath
-            echo ""
-            echo "Listing logs folder:"
-            echo ""
-            ls -Ralph "/home/runner/Steam/logs/"
-            echo ""
-            echo "Displaying error log"
-            echo ""
-            cat "/home/runner/Steam/logs/stderr.txt"
-            echo ""
-            echo "Displaying bootstrapper log"
-            echo ""
-            cat "/home/runner/Steam/logs/bootstrap_log.txt"
-            echo ""
-            exit 1
-        )
+        # $STEAM_CMD +login "$steamAcct" "$steamPasswd" +workshop_build_item "$upload" +quit || (
+        #     echo ""
+        #     echo "#################################"
+        #     echo "#             Errors            #"
+        #     echo "#################################"
+        #     echo ""
+        #     echo "Listing steam home contents"
+        #     ls -Ralph $STEAM_HOME
+        #     echo ""
+        #     echo "Listing current folder and rootpath"
+        #     echo ""
+        #     ls -alh
+        #     echo ""
+        #     ls -alh $rootPath
+        #     echo ""
+        #     echo "Listing logs folder:"
+        #     echo ""
+        #     ls -Ralph "/home/runner/Steam/logs/"
+        #     echo ""
+        #     echo "Displaying error log"
+        #     echo ""
+        #     cat "/home/runner/Steam/logs/stderr.txt"
+        #     echo ""
+        #     echo "Displaying bootstrapper log"
+        #     echo ""
+        #     cat "/home/runner/Steam/logs/bootstrap_log.txt"
+        #     echo ""
+        #     exit 1
+        # )
     fi
 done
