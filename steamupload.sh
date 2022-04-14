@@ -50,7 +50,7 @@ do
         echo "Mod to upload:: $mod"
         upload=$(find $GITHUB_WORKSPACE/$mod -name "*.vdf" )
         echo "Upload VDF File:: $upload"
-        sed -i s/\"contentfolder\"\ \"/\"contentfolder\"\ \"$GITHUB_WORKSPACE\\/g $upload
+        sed -i "s/\"contentfolder\"\ \"/\"contentfolder\"\ \"$GITHUB_WORKSPACE\\/g" $upload
         cat $upload
         echo ""
         $STEAM_CMD +login "$steamAcct" "$steamPasswd" +workshop_build_item "$upload" +quit || (
