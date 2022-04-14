@@ -35,7 +35,7 @@ chmod 777 "/home/runner/Steam/config/config.vdf"
 echo "Copying $STEAM_HOME/ssfn"
 echo "$ssfnFileContents" | base64 -d > "$STEAM_HOME/$ssfnFileName"
 
-echo "md5 of ssfn:: $(md5sum "$STEAM_HOME/$ssfnFileName)"
+echo "md5 of ssfn:: $(md5sum $STEAM_HOME/$ssfnFileName)"
 chmod 777 "$STEAM_HOME/$ssfnFileName"
 
 echo "Copying /home/runner/Steam/ssfn"
