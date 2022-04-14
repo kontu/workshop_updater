@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x # echo on for debug
+#set -x # echo on for debug
 
 cd $GITHUB_WORKSPACE
 list=$(git diff-tree --no-commit-id --name-only -r $GITHUB_SHA | xargs)
@@ -34,17 +34,11 @@ chmod 777 "/home/runner/Steam/config/config.vdf"
 
 echo "Copying $STEAM_HOME/ssfn"
 echo "$ssfnContents" | base64 -d > "$STEAM_HOME/$ssfnFileName"
-
-echo "md5 of ssfn:: $(md5sum $STEAM_HOME/$ssfnFileName)"
 chmod 777 "$STEAM_HOME/$ssfnFileName"
 
 echo "Copying /home/runner/Steam/ssfn"
 echo "$ssfnContents" | base64 -d > "/home/runner/Steam/$ssfnFileName"
-
-echo "md5 of ssfn2:: $(md5sum $/home/runner/Steam/$ssfnFileName)"
-
 chmod 777 "/home/runner/Steam/$ssfnFileName"
-set -x
 
 echo "Finished Copying SteamGuard Files!"
 echo ""
@@ -56,34 +50,34 @@ do
         echo "Mod to upload:: $mod"
         upload=$(find $GITHUB_WORKSPACE/$mod -name "*.vdf" )
         echo "Upload VDF File:: $upload"
-        # $STEAM_CMD +login "$steamAcct" "$steamPasswd" +workshop_build_item "$upload" +quit || (
-        #     echo ""
-        #     echo "#################################"
-        #     echo "#             Errors            #"
-        #     echo "#################################"
-        #     echo ""
-        #     echo "Listing steam home contents"
-        #     ls -Ralph $STEAM_HOME
-        #     echo ""
-        #     echo "Listing current folder and rootpath"
-        #     echo ""
-        #     ls -alh
-        #     echo ""
-        #     ls -alh $rootPath
-        #     echo ""
-        #     echo "Listing logs folder:"
-        #     echo ""
-        #     ls -Ralph "/home/runner/Steam/logs/"
-        #     echo ""
-        #     echo "Displaying error log"
-        #     echo ""
-        #     cat "/home/runner/Steam/logs/stderr.txt"
-        #     echo ""
-        #     echo "Displaying bootstrapper log"
-        #     echo ""
-        #     cat "/home/runner/Steam/logs/bootstrap_log.txt"
-        #     echo ""
-        #     exit 1
-        # )
+        $STEAM_CMD +login "$steamAcct" "$steamPasswd" +workshop_build_item "$upload" +quit || (
+            echo ""
+            echo "#################################"
+            echo "#             Errors            #"
+            echo "#################################"
+            echo ""
+            echo "Listing steam home contents"
+            ls -Ralph $STEAM_HOME
+            echo ""
+            echo "Listing current folder and rootpath"
+            echo ""
+            ls -alh
+            echo ""
+            ls -alh $rootPath
+            echo ""
+            echo "Listing logs folder:"
+            echo ""
+            ls -Ralph "/home/runner/Steam/logs/"
+            echo ""
+            echo "Displaying error log"
+            echo ""
+            cat "/home/runner/Steam/logs/stderr.txt"
+            echo ""
+            echo "Displaying bootstrapper log"
+            echo ""
+            cat "/home/runner/Steam/logs/bootstrap_log.txt"
+            echo ""
+            exit 1
+        )
     fi
 done
