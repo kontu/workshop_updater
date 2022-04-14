@@ -7,6 +7,7 @@ list=$(git diff-tree --no-commit-id --name-only -r $GITHUB_SHA | xargs)
 files=($list)
 mods=$(printf '%s\n' "${files[@]}" | cut -f1-2 -d '/' | uniq)
 
+echo "GithubWorkspace:: $GITHUB_WORKSPACE"
 echo "GithubSHA:: $GITHUB_SHA"
 echo "Changed Files:: $list"
 echo "Path:: $path"
@@ -50,34 +51,39 @@ do
         echo "Mod to upload:: $mod"
         upload=$(find $GITHUB_WORKSPACE/$mod -name "*.vdf" )
         echo "Upload VDF File:: $upload"
+        cat $upload
+        echo ""
         $STEAM_CMD +login "$steamAcct" "$steamPasswd" +workshop_build_item "$upload" +quit || (
-            echo ""
-            echo "#################################"
-            echo "#             Errors            #"
-            echo "#################################"
-            echo ""
-            echo "Listing steam home contents"
-            ls -Ralph $STEAM_HOME
-            echo ""
-            echo "Listing current folder and rootpath"
-            echo ""
-            ls -alh
-            echo ""
-            ls -alh $rootPath
-            echo ""
-            echo "Listing logs folder:"
-            echo ""
-            ls -Ralph "/home/runner/Steam/logs/"
-            echo ""
-            echo "Displaying error log"
-            echo ""
             cat "/home/runner/Steam/logs/stderr.txt"
-            echo ""
-            echo "Displaying bootstrapper log"
-            echo ""
-            cat "/home/runner/Steam/logs/bootstrap_log.txt"
-            echo ""
-            exit 1
         )
+        #  || (
+        #     echo ""
+        #     echo "#################################"
+        #     echo "#             Errors            #"
+        #     echo "#################################"
+        #     echo ""
+        #     echo "Listing steam home contents"
+        #     ls -Ralph $STEAM_HOME
+        #     echo ""
+        #     echo "Listing current folder and rootpath"
+        #     echo ""
+        #     ls -alh
+        #     echo ""
+        #     ls -alh $rootPath
+        #     echo ""
+        #     echo "Listing logs folder:"
+        #     echo ""
+        #     ls -Ralph "/home/runner/Steam/logs/"
+        #     echo ""
+        #     echo "Displaying error log"
+        #     echo ""
+        #     cat "/home/runner/Steam/logs/stderr.txt"
+        #     echo ""
+        #     echo "Displaying bootstrapper log"
+        #     echo ""
+        #     cat "/home/runner/Steam/logs/bootstrap_log.txt"
+        #     echo ""
+        #     exit 1
+        # )
     fi
 done
