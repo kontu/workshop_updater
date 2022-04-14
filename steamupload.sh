@@ -1,5 +1,5 @@
 #!/bin/bash
-#set -x # echo on for debug
+set -x # echo on for debug
 
 cd $GITHUB_WORKSPACE
 list=$(git diff-tree --no-commit-id --name-only -r $GITHUB_SHA | xargs)
@@ -21,26 +21,29 @@ echo ""
 mkdir -p "$STEAM_HOME/config"
 mkdir -p "/home/runner/Steam/config"
 
-echo "Copying $STEAM_HOME/config/config.vdf..."
+echo "Copying $STEAM_HOME/config/config.vdf"
 echo "$SteamConfigVDF" | base64 -d > "$STEAM_HOME/config/config.vdf"
 chmod 777 "$STEAM_HOME/config/config.vdf"
 
-echo "Copying /home/runner/Steam/config/config.vdf..."
+echo "Copying /home/runner/Steam/config/config.vdf"
 echo "$SteamConfigVDF" | base64 -d > "/home/runner/Steam/config/config.vdf"
 chmod 777 "/home/runner/Steam/config/config.vdf"
 
-echo "Copying $STEAM_HOME/ssfn..."
+echo "Copying $STEAM_HOME/ssfn"
 echo "$ssfnFileContents" | base64 -d > "$STEAM_HOME/$ssfnFileName"
 chmod 777 "$STEAM_HOME/$ssfnFileName"
 
-echo "Copying /home/runner/Steam/ssfn..."
+echo "Copying /home/runner/Steam/ssfn"
 echo "$ssfnFileContents" | base64 -d > "/home/runner/Steam/$ssfnFileName"
 chmod 777 "/home/runner/Steam/$ssfnFileName"
 
+
 echo "Finished Copying SteamGuard Files!"
 echo ""
-
-
+#set -x
+cat "/home/runner/Steam/config/config.vdf"
+cat "$STEAM_HOME/config/config.vdf"
+#set +x
 # Run through updating the mods if the above parsed correctly
 for mod in $mods
 do
