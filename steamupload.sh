@@ -12,6 +12,7 @@ echo "Changed Files:: $list"
 echo "Path:: $path"
 echo "SteamAcct:: $steamAcct"
 echo "SSFN Filename:: $ssfnFileName"
+echo "Steam_Home:: $STEAM_HOME"
 echo ""
 echo "#################################"
 echo "#    Copying SteamGuard Files   #"
@@ -40,10 +41,6 @@ chmod 777 "/home/runner/Steam/$ssfnFileName"
 
 echo "Finished Copying SteamGuard Files!"
 echo ""
-#set -x
-cat "/home/runner/Steam/config/config.vdf"
-cat "$STEAM_HOME/config/config.vdf"
-#set +x
 # Run through updating the mods if the above parsed correctly
 for mod in $mods
 do
