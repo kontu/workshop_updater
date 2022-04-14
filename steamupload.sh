@@ -9,6 +9,8 @@ files=($list)
 mods=$(printf '%s\n' "${files[@]}" | cut -f1-2 -d '/' | uniq)
 
 
+workspace=$(echo "$GITHUB_WORKSPACE" | sed 's/\\/\\\\/g')
+
 echo "### Environment Information ###"
 echo "GithubWorkspace:: $GITHUB_WORKSPACE"
 echo "GithubSHA:: $GITHUB_SHA"
@@ -33,6 +35,11 @@ chmod 777 "/home/runner/Steam/$ssfnFileName"
 chmod 777 "/home/runner/Steam/config/config.vdf"
 echo "Finished Copying SteamGuard Files!"
 echo ""
+
+
+# Make sure the config.vdf has the right path for sentryfile
+sed -i "s|\"SentryFile\".*\".*\"|\"SentryFile\"            \"$workspace\\/$ssfnFileName\"|g" "/home/runner/Steam/config/config.vdf"
+
 # Run through updating the mods if the above parsed correctly
 for mod in $mods
 do
@@ -41,10 +48,10 @@ do
         echo "Mod to upload:: $mod"
         upload=$(find $GITHUB_WORKSPACE/$mod -name "*.vdf" )
         echo "Upload VDF File:: $upload"
-        var=$(echo "$GITHUB_WORKSPACE" | sed 's/\\/\\\\/g')
+
         sed -i "s|\\\|\/|g" $upload
-        sed -i  "s|\"contentfolder\" \"|\"contentfolder\" \"$var\\/|g" $upload
-        sed -i  "s|\"previewfile\" \"|\"previewfile\" \"$var\\/|g" $upload
+        sed -i  "s|\"contentfolder\" \"|\"contentfolder\" \"$workspace\\/|g" $upload
+        sed -i  "s|\"previewfile\" \"|\"previewfile\" \"$workspace\\/|g" $upload
         
         cat $upload
         echo ""

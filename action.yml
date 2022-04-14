@@ -26,7 +26,7 @@ runs:
       shell: bash
 inputs:
   path:
-    description: "The relative base path of your mods in the repo. Include trailing slash"
+    description: "The relative base path of your mods in the repo. Do not include trailing slash."
     required: true
     default: 'Mods'
   steamAcct:
@@ -37,13 +37,13 @@ inputs:
     required: true
   ssfnContents:
     description: "base64 of the steam SSFN file that has authorized the account being used. Used for MFA"
-    default: 'null'
+    default: ' '
     required: false
   ssfnFileName:
-    description: "SSFN file name specified in the config.vdf that has authorized the account being used. Used for MFA"
-    default: 'null'
+    description: "SSFN file name specified in the config.vdf that has authorized the account being used. Used for MFA. ssfnFileName can not be a secret at this time :("
+    default: ' '
     required: false
   steamConfigVdf:
-    description: "base64 of the steam config vdf generated for the account being used. Used for MFA"
-    default: 'null'
+    description: "plaintext steam config vdf generated for the account being used. Used for MFA"
+    default: ' '
     required: false
