@@ -51,9 +51,10 @@ do
         upload=$(find $GITHUB_WORKSPACE/$mod -name "*.vdf" )
         echo "Upload VDF File:: $upload"
         var=$(echo "$GITHUB_WORKSPACE" | sed 's/\\/\\\\/g')
-        sed -i  "s|\"contentfolder\" \"|\"contentfolder\" \"$var\\\|g" $upload
-        sed -i  "s|\"previewfile\" \"|\"previewfile\" \"$var\\\|g" $upload
-        sed -i  "s|\"title\" \"|\"title\" \"$var\\\|g" $upload
+        sed -i "s|\\\|\/|g" $upload
+        sed -i  "s|\"contentfolder\" \"|\"contentfolder\" \"$var\\/|g" $upload
+        sed -i  "s|\"previewfile\" \"|\"previewfile\" \"$var\\/|g" $upload
+        sed -i  "s|\"title\" \"|\"title\" \"$var\\/|g" $upload
         
         cat $upload
         echo ""
