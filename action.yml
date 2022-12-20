@@ -18,7 +18,7 @@ runs:
         ssfnContents: ${{ inputs.ssfnContents }}
         ssfnFileName: ${{ inputs.ssfnFileName }}
         SteamConfigVDF: ${{ inputs.steamConfigVdf}}
-        modName: ${{ inputs.modName}}
+        modNames: ${{ inputs.modNames}}
         STEAM_CMD: ${{ steps.setup-steamcmd.outputs.executable }}
       run: |
         git config --global --add safe.directory /github/workspace
@@ -31,7 +31,7 @@ inputs:
     required: true
     default: 'Mods'
   modNames:
-    description: "Name of VDF file to upload. For multiple uploads in one run, separate them by a space. Does not matter if you include the extension or not Eg: `DraconisOres6.vdf`` or `DraconisOres6`"
+    description: "Name of VDF file(s) to upload. For multiple uploads in one run, separate them by a space. Does not matter if you include the extension or not Eg: `DraconisOres6.vdf`` or `DraconisOres6`"
     required: true
   steamAcct:
     description: "Steam account name to login with"
