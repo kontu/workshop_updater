@@ -12,6 +12,7 @@ echo "SteamAcct:: $steamAcct"
 echo "SSFN Filename:: $ssfnFileName"
 echo "Steam_executable:: $STEAM_CMD"
 echo "modNames:: $modNames"
+echo $(ls -alhr /home/runner/Steam/)
 echo ""
 
 echo "#################################"
@@ -57,6 +58,7 @@ do
         echo "#################################"
         echo ""
         echo "MOD failed to upload please review output above"
+        false
         )
 
 done
