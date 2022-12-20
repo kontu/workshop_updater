@@ -46,7 +46,7 @@ do
     fi
 
     echo "Mod to upload:: $mod"
-    upload=$(find $GITHUB_WORKSPACE -type f -iname "$mod*" )
+    upload=$(find $GITHUB_WORKSPACE -type f -iname "$mod.vdf" )
     echo "Upload VDF File:: $upload"
 
     sed -i "s|\\\|\/|g" $upload
