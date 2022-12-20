@@ -11,6 +11,7 @@ echo "Path:: $path"
 echo "SteamAcct:: $steamAcct"
 echo "SSFN Filename:: $ssfnFileName"
 echo "Steam_executable:: $STEAM_CMD"
+echo "modNames:: $modNames"
 echo ""
 
 echo "#################################"
@@ -39,25 +40,27 @@ read -a mods <<< $modNames
 echo "Mods here: $mods"
 for mod in $mods
 do
-    if [[ $mod == $path* ]];
+    if [[ $(echo $mod | grep -i ".vdf$") ]];
     then
-        echo "Mod to upload:: $mod"
-        upload=$(find $GITHUB_WORKSPACE/$mod -type f -iname "$mod(.vdf)?" )
-        echo "Upload VDF File:: $upload"
-
-        sed -i "s|\\\|\/|g" $upload
-        sed -i  "s|\"contentfolder\" \"|\"contentfolder\" \"$workspace\\/|g" $upload
-        sed -i  "s|\"previewfile\" \"|\"previewfile\" \"$workspace\\/|g" $upload
-
-        cat $upload
-        echo ""
-        $STEAM_CMD +login "$steamAcct" "$steamPasswd" +workshop_build_item "$upload" +quit || (
-            echo ""
-            echo "#################################"
-            echo "#             Error             #"
-            echo "#################################"
-            echo ""
-            echo "MOD failed to upload please review output above"
-            )
+        mod=$(echo $mod | rev | cut -c4- | rev)
     fi
+
+    echo "Mod to upload:: $mod"
+    upload=$(find $GITHUB_WORKSPACE -type f -iname "$mod*" )
+    echo "Upload VDF File:: $upload"
+
+    sed -i "s|\\\|\/|g" $upload
+    sed -i  "s|\"contentfolder\" \"|\"contentfolder\" \"$workspace\\/|g" $upload
+    sed -i  "s|\"previewfile\" \"|\"previewfile\" \"$workspace\\/|g" $upload
+
+    cat $upload
+    echo ""
+    $STEAM_CMD +login "$steamAcct" "$steamPasswd" +workshop_build_item "$upload" +quit || (
+        echo ""
+        echo "#################################"
+        echo "#             Error             #"
+        echo "#################################"
+        echo ""
+        echo "MOD failed to upload please review output above"
+        )
 done
