@@ -34,17 +34,12 @@ echo ""
 sed -i "s|\"SentryFile\".*\".*\"|\"SentryFile\"            \"$workspace\\/$ssfnFileName\"|g" "/home/runner/Steam/config/config.vdf"
 
 # Run through updating the mods if the above parsed correctly
-IFS=' '
-read -a mods <<< $modNames
-
-echo "Mods here: $mods"
-for mod in $mods
+for mod in $modNames
 do
     if [[ $(echo $mod | grep -i ".vdf$") ]];
     then
         mod=$(echo $mod | rev | cut -c4- | rev)
     fi
-
     echo "Mod to upload:: $mod"
     upload=$(find $GITHUB_WORKSPACE -type f -iname "$mod.vdf" )
     echo "Upload VDF File:: $upload"
@@ -63,4 +58,5 @@ do
         echo ""
         echo "MOD failed to upload please review output above"
         )
+
 done
