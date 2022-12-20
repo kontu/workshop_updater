@@ -35,6 +35,8 @@ sed -i "s|\"SentryFile\".*\".*\"|\"SentryFile\"            \"$workspace\\/$ssfnF
 # Run through updating the mods if the above parsed correctly
 IFS=' '
 read -a mods <<< $modNames
+
+echo "Mods here: $mods"
 for mod in $mods
 do
     if [[ $mod == $path* ]];
