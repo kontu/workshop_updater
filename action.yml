@@ -12,13 +12,13 @@ runs:
       uses: CyberAndrii/setup-steamcmd@v1.1.5
     - id: update_workshop
       env:
-        # path: ${{ inputs.path }}
-        # steamAcct: ${{ inputs.steamAcct }}
-        # steamPasswd: ${{ inputs.steamPasswd }}
-        # ssfnContents: ${{ inputs.ssfnContents }}
-        # ssfnFileName: ${{ inputs.ssfnFileName }}
-        # SteamConfigVDF: ${{ inputs.steamConfigVdf}}
-        # modNames: ${{ inputs.modNames}}
+        path: ${{ inputs.path }}
+        steamAcct: ${{ secrets.steamAcct }}
+        steamPasswd: ${{ secrets.steamPasswd }}
+        ssfnContents: ${{ secrets.ssfnContents }}
+        ssfnFileName: ${{ secrets.ssfnFileName }}
+        SteamConfigVDF: ${{ secrets.steamConfigVdf}}
+        modNames: ${{ inputs.modNames}}
         STEAM_CMD: ${{ steps.setup-steamcmd.outputs.executable }}
       run: |
         git config --global --add safe.directory /github/workspace
@@ -33,24 +33,18 @@ inputs:
   modNames:
     description: "Name of VDF file(s) to upload. For multiple uploads in one run, separate them by a space. Must NOT include the extension Eg: `DraconisOres6`"
     required: true
-    default: ${{ inputs.modNames }}
   steamAcct:
     description: "Steam account name to login with"
     required: true
-    default: ${{ secrets.steamAcct }}
   steamPasswd:
     description: "Steam password (use secrets to store)"
-    default: ${{ secrets.steamPasswd }}
     required: true
   ssfnContents:
     description: "base64 of the steam SSFN file that has authorized the account being used. Used for MFA"
-    default: ${{ secrets.ssfnContents }}
     required: true
   ssfnFileName:
     description: "SSFN file name specified in the config.vdf that has authorized the account being used. Used for MFA. ssfnFileName can not be a secret at this time :("
-    default: ${{ secrets.ssfnFileName }}
     required: true
   steamConfigVdf:
     description: "plaintext steam config vdf generated for the account being used. Used for MFA"
-    default: ${{ secrets.steam_config_vdf }}
     required: true
