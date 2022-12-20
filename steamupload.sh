@@ -1,20 +1,12 @@
 #!/bin/bash
 
 cd $GITHUB_WORKSPACE
-# Checks what files were modified
-list=$(git diff-tree --no-commit-id --name-only -r $GITHUB_SHA | xargs)
-
-# Turns list of files to an array bc it didn't want to do it in one operation
-files=($list)
-mods=$(printf '%s\n' "${files[@]}" | cut -f1-2 -d '/' | uniq)
-
 
 workspace=$(echo "$GITHUB_WORKSPACE" | sed 's/\\/\\\\/g')
 
 echo "### Environment Information ###"
 echo "GithubWorkspace:: $GITHUB_WORKSPACE"
 echo "GithubSHA:: $GITHUB_SHA"
-echo "Changed Files:: $list"
 echo "Path:: $path"
 echo "SteamAcct:: $steamAcct"
 echo "SSFN Filename:: $ssfnFileName"
@@ -41,18 +33,20 @@ echo ""
 sed -i "s|\"SentryFile\".*\".*\"|\"SentryFile\"            \"$workspace\\/$ssfnFileName\"|g" "/home/runner/Steam/config/config.vdf"
 
 # Run through updating the mods if the above parsed correctly
+IFS=' '
+read -a mods <<< $modNames
 for mod in $mods
 do
-    if [[ $mod == $path* ]]; 
-    then 
+    if [[ $mod == $path* ]];
+    then
         echo "Mod to upload:: $mod"
-        upload=$(find $GITHUB_WORKSPACE/$mod -name "*.vdf" )
+        upload=$(find $GITHUB_WORKSPACE/$mod -type f -iname "$mod(.vdf)?" )
         echo "Upload VDF File:: $upload"
 
         sed -i "s|\\\|\/|g" $upload
         sed -i  "s|\"contentfolder\" \"|\"contentfolder\" \"$workspace\\/|g" $upload
         sed -i  "s|\"previewfile\" \"|\"previewfile\" \"$workspace\\/|g" $upload
-        
+
         cat $upload
         echo ""
         $STEAM_CMD +login "$steamAcct" "$steamPasswd" +workshop_build_item "$upload" +quit || (
