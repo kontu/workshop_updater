@@ -13,11 +13,11 @@ runs:
     - id: update_workshop
       env:
         path: ${{ inputs.path }}
-        steamAcct: ${{ secrets.steamAcct }}
-        steamPasswd: ${{ secrets.steamPasswd }}
-        ssfnContents: ${{ secrets.ssfnContents }}
-        ssfnFileName: ${{ secrets.ssfnFileName }}
-        SteamConfigVDF: ${{ secrets.steamConfigVdf}}
+        steamAcct: ${{ inputs.steamAcct }}
+        steamPasswd: ${{ inputs.steamPasswd }}
+        ssfnContents: ${{ inputs.ssfnContents }}
+        ssfnFileName: ${{ inputs.ssfnFileName }}
+        SteamConfigVDF: ${{ inputs.steamConfigVdf}}
         modNames: ${{ inputs.modNames}}
         STEAM_CMD: ${{ steps.setup-steamcmd.outputs.executable }}
       run: |
