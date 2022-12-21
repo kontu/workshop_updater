@@ -32,6 +32,7 @@ echo ""
 
 
 # Make sure the config.vdf has the right path for sentryfile
+# the stupid whitespace right under this part   vvvvvvvvv  may or may not matter, I just matched it exactly like the file.
 sed -i "s|\"SentryFile\".*\".*\"|\"SentryFile\"            \"$workspace\\/$ssfnFileName\"|g" "/home/runner/Steam/config/config.vdf"
 
 # Run through updating the mods if the above parsed correctly
@@ -51,7 +52,7 @@ do
 
     cat $upload
     echo ""
-    $STEAM_CMD +login "$steamAcct" "$steamPasswd" +workshop_build_item "$upload" +quit || (
+    $STEAM_CMD +login "$steamAcct" "$steamPasswd" +workshop_build_item "$upload" +quit && echo "" || (
         echo ""
         echo "#################################"
         echo "#             Error             #"
