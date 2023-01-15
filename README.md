@@ -8,11 +8,11 @@ You'll need to upload your addon using the Workshop tools of the game/app you're
 name: update_steamWorkshop
 
 on:
-  push:
-    paths:
-    # Only triggers the action if a file is edited which exists somewhere beneath this path.
-    # Should match it to what you set "path" to
-      - 'Mods/**'
+  workflow_dispatch:
+    inputs:
+      modNames:
+        Description: 'Full name of mod vdf to upload. Doesnt matter if you include the .vdf extension. If uploading multiple mods, separate with a space. Eg: `DraconisDIE_Nebula.vdf DraconisDIE_Tiers`'
+        required: true
 
 jobs:
   updateWorkshop:
@@ -29,7 +29,7 @@ jobs:
           steamAcct: ${{ secrets.steamAcct }}
           steamPasswd: ${{ secrets.steamPasswd }}
           ssfnContents: ${{ secrets.ssfnContents }} # base64 encoded - see readme
-          ssfnFileName: 'ssfn1098596842295311902'
+          ssfnFileName:  ${{ secrets.ssfnFileName }}
           steamConfigVdf: ${{ secrets.steam_config_vdf }}
 ```
 ## Example mod repo layout:
