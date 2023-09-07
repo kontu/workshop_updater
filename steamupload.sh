@@ -9,7 +9,7 @@ echo "GithubWorkspace:: $GITHUB_WORKSPACE"
 echo "GithubSHA:: $GITHUB_SHA"
 echo "Path:: $path"
 echo "SteamAcct:: $steamAcct"
-echo "SSFN Filename:: $ssfnFileName"
+# echo "SSFN Filename:: $ssfnFileName"
 echo "Steam_executable:: $STEAM_CMD"
 echo "modNames:: $modNames"
 echo $(ls -alhr /home/runner/Steam/)
@@ -23,9 +23,9 @@ mkdir -p "/home/runner/Steam/config"
 
 echo "Copying /home/runner/Steam/config/config.vdf"
 echo "$SteamConfigVDF" > "/home/runner/Steam/config/config.vdf"
-echo "Copying /home/runner/Steam/ssfn"
-echo "$ssfnContents" | base64 -d > "/home/runner/Steam/$ssfnFileName"
-chmod 777 "/home/runner/Steam/$ssfnFileName"
+# echo "Copying /home/runner/Steam/ssfn"
+# echo "$ssfnContents" | base64 -d > "/home/runner/Steam/$ssfnFileName"
+# chmod 777 "/home/runner/Steam/$ssfnFileName"
 chmod 777 "/home/runner/Steam/config/config.vdf"
 echo "Finished Copying SteamGuard Files!"
 echo ""
@@ -33,7 +33,7 @@ echo ""
 
 # Make sure the config.vdf has the right path for sentryfile
 # the stupid whitespace right under this part   vvvvvvvvv  may or may not matter, I just matched it exactly like the file.
-sed -i "s|\"SentryFile\".*\".*\"|\"SentryFile\"            \"$workspace\\/$ssfnFileName\"|g" "/home/runner/Steam/config/config.vdf"
+# sed -i "s|\"SentryFile\".*\".*\"|\"SentryFile\"            \"$workspace\\/$ssfnFileName\"|g" "/home/runner/Steam/config/config.vdf"
 
 # Run through updating the mods if the above parsed correctly
 for mod in $modNames
@@ -52,7 +52,7 @@ do
 
     cat $upload
     echo ""
-    $STEAM_CMD +login "$steamAcct" "$steamPasswd" +workshop_build_item "$upload" +quit && echo "" || (
+    $STEAM_CMD +login "$steamAcct" +workshop_build_item "$upload" +quit && echo "" || (
         echo ""
         echo "#################################"
         echo "#             Error             #"

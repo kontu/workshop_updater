@@ -14,9 +14,9 @@ runs:
       env:
         path: ${{ inputs.path }}
         steamAcct: ${{ inputs.steamAcct }}
-        steamPasswd: ${{ inputs.steamPasswd }}
-        ssfnContents: ${{ inputs.ssfnContents }}
-        ssfnFileName: ${{ inputs.ssfnFileName }}
+        # steamPasswd: ${{ inputs.steamPasswd }}
+        # ssfnContents: ${{ inputs.ssfnContents }}
+        # ssfnFileName: ${{ inputs.ssfnFileName }}
         SteamConfigVDF: ${{ inputs.steamConfigVdf}}
         modNames: ${{ inputs.modNames}}
         STEAM_CMD: ${{ steps.setup-steamcmd.outputs.executable }}
@@ -36,15 +36,15 @@ inputs:
   steamAcct:
     description: "Steam account name to login with"
     required: true
-  steamPasswd:
-    description: "Steam password (use secrets to store)"
-    required: true
-  ssfnContents:
-    description: "base64 of the steam SSFN file that has authorized the account being used. Used for MFA"
-    required: true
-  ssfnFileName:
-    description: "SSFN file name specified in the config.vdf that has authorized the account being used. Used for MFA. ssfnFileName can not be a secret at this time :("
-    required: true
+  # steamPasswd:
+  #   description: "Steam password (use secrets to store)"
+  #   required: true
+  # ssfnContents:
+  #   description: "base64 of the steam SSFN file that has authorized the account being used. Used for MFA"
+  #   required: true
+  # ssfnFileName:
+  #   description: "SSFN file name specified in the config.vdf that has authorized the account being used. Used for MFA. ssfnFileName can not be a secret at this time :("
+  #   required: true
   steamConfigVdf:
     description: "plaintext steam config vdf generated for the account being used. Used for MFA"
     required: true
