@@ -27,9 +27,6 @@ jobs:
         with:
           path: 'Mods'
           steamAcct: ${{ secrets.steamAcct }}
-          steamPasswd: ${{ secrets.steamPasswd }}
-          ssfnContents: ${{ secrets.ssfnContents }} # base64 encoded - see readme
-          ssfnFileName:  ${{ secrets.ssfnFileName }}
           steamConfigVdf: ${{ secrets.steam_config_vdf }}
 ```
 ## Example mod repo layout:
@@ -42,7 +39,7 @@ Example vdf file:
 "workshopitem"
 {
  "appid" "244850"
- "publishedfileid" "2793886717" 
+ "publishedfileid" "2793886717"
  "contentfolder" "Mods/mod_one"
  "previewfile" "Mods/mod_one/thumb.png"
  "visibility" "0"
@@ -57,15 +54,13 @@ Full steamworks documentation  https://partner.steamgames.com/doc/features/works
 ## Arguments
 See list of inputs in [action.yml](https://github.com/kontu/workshop_updater/blob/master/action.yml)
 
-## How to create MFA secrets : 
+## How to create MFA secrets :
 #### configVdf, ssfnFileName, and ssfnFileContents
 
-Deploying to Steam often requires using Multi-Factor Authentication (MFA) through Steam Guard. This means that simply using username and password isn't enough to authenticate with Steam. 
+Deploying to Steam often requires using Multi-Factor Authentication (MFA) through Steam Guard. This means that simply using username and password isn't enough to authenticate with Steam.
 
-However, it is possible to go through the MFA process only once by setting up GitHub Secrets for configVdf, ssfnFileName, and ssfnFileContents with these steps:
+However, it is possible to go through the MFA process only once by setting up GitHub Secrets for configVdf with these steps:
 1. Install [Valve's offical steamcmd](https://partner.steamgames.com/doc/sdk/uploading#1) on your local machine. All following steps will also be done on your local machine.
 1. Try to login with `steamcmd +login <username> <password> +quit`, which may prompt for the MFA code. If so, type in the MFA code that was emailed to your builder account's email address.
-1. Validate that the MFA process is complete by running `steamcmd +login <username> <password> +quit` again. It should not ask for the MFA code again.
-1. The folder from which you run `steamcmd` will now contain an updated `config/config.vdf` file. Open the file and find the entry near the bottom for "SentryFile". Edit this line so the target is "/home/runner/Steam/<leavethessfnparthere>"  Copy the contents of the updated `config.vdf` to a GitHub Secret `steamConfigVdf`.
-1. That folder will also contain two files whose names look like `ssfn<numbers>`, **but one of them is a hidden file if on Windows**. [Find the hidden one](https://support.microsoft.com/en-us/windows/view-hidden-files-and-folders-in-windows-97fbc472-c603-9d90-91d0-1166d1d9f4b5), then copy the name of that file to a the `ssfnFileName` argument
-1. Use `cat <ssfnFileName> | base64 > ssfn_base64.txt` to encode the contents of the hidden ssfn file. Copy the contents of `ssfn_base64.txt` to a GitHub Secret `ssfnContents`.
+1. Validate that the MFA process is complete by running `steamcmd +login <username> +quit` again. It should not ask for the MFA code again.
+1. The folder from which you run `steamcmd` will now contain an updated `config/config.vdf` file. This is the file we want to store in secrets.steam_config_vdf, it contains the authentication information at the bottom.
