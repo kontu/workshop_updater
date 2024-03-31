@@ -9,7 +9,7 @@ runs:
   using: 'composite'
   steps:
     - id: setup-steamcmd
-      uses: CyberAndrii/setup-steamcmd@v1.1.5
+      uses: CyberAndrii/setup-steamcmd@v1.2.0
     - id: update_workshop
       env:
         path: ${{ inputs.path }}
